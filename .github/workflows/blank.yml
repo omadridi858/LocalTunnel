@@ -10,7 +10,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install Node.js
+    - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
@@ -38,6 +38,12 @@ jobs:
       run: |
         echo "LocalTunnel URL: ${{ env.URL }}"
         echo "Tunnel Password: ${{ env.PASSWORD }}"
+
+    - name: Cleanup
+      run: |
+        # Optionally stop the LocalTunnel process if needed
+        pkill -f lt
+
 
     - name: Cleanup
       run: |
