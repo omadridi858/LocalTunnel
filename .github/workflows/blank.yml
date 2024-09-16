@@ -1,0 +1,25 @@
+name: CI
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install LocalTunnel
+      run: |
+        sudo npm install -g localtunnel
+
+    - name: Start LocalTunnel
+      run: |
+        lt --port 3389 --subdomain mycustomsubdomain --print-requests > lt.log &
+        sleep 10  # الانتظار لضمان بدء LocalTunnel بشكل صحيح
+
+    - name: Print LocalTunnel URL
+      run: |
+        cat lt.log | grep "your subdomain"  # قم بإزالة "your subdomain" إذا كنت لا تريد الفلترة حسب النطاق الفرعي
+
