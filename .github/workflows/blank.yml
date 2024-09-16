@@ -21,5 +21,5 @@ jobs:
 
     - name: Print LocalTunnel URL
       run: |
-        cat lt.log | grep "your subdomain"  # قم بإزالة "your subdomain" إذا كنت لا تريد الفلترة حسب النطاق الفرعي
-
+        cat lt.log || true  # طباعة السجل بالكامل للتصحيح
+        grep "your subdomain" lt.log || echo "LocalTunnel URL not found"
