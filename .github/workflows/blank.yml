@@ -16,10 +16,9 @@ jobs:
 
     - name: Start LocalTunnel
       run: |
-        lt --port 3389 --subdomain mycustomsubdomain --print-requests > lt.log &
+        lt --port 3389 --subdomain mycustomsubdomain > lt.log &
         sleep 10  # الانتظار لضمان بدء LocalTunnel بشكل صحيح
 
     - name: Print LocalTunnel URL
       run: |
-        cat lt.log || true  # طباعة السجل بالكامل للتصحيح
-        grep "your subdomain" lt.log || echo "LocalTunnel URL not found"
+        cat lt.log | grep "https://" || echo "LocalTunnel URL not found"
